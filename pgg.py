@@ -1,9 +1,14 @@
+import os
 import json
 import time
 from time import localtime, strftime
 from urllib.request import Request, urlopen
 
 koniec = time.time() + 65*60
+
+katalog = "log"
+
+os.makedirs(katalog, exist_ok=True)
 
 plikLogiNazwa = "log\pgg_"+strftime("%Y%m%d_%H%M%S", localtime())+".txt"
 txt = "\n"+"Zaczynamy: "+strftime("%d-%m-%Y %H:%M:%S", localtime())

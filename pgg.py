@@ -5,7 +5,7 @@ from urllib.request import Request, urlopen
 
 koniec = time.time() + 65*60
 
-plikLogiNazwa = "pgg_"+strftime("%Y%m%d_%H%M%S", localtime())+".txt"
+plikLogiNazwa = "log\pgg_"+strftime("%Y%m%d_%H%M%S", localtime())+".txt"
 txt = "\n"+"Zaczynamy: "+strftime("%d-%m-%Y %H:%M:%S", localtime())
 
 plikLogi = open(plikLogiNazwa, "a")
@@ -35,10 +35,16 @@ while True:
             if i["stockStatus"] != False:
                 sprawdzenie += 1
                 nazwaGroszek = i["productName"]
-                ciach = nazwaGroszek.find("\n")
-                txtStan = str(sprawdzenie)+", "+nazwaGroszek[:ciach]+", "+nazwaGroszek[ciach+1:]
-                print(txtStan)
-                plikLogi.write(txtStan+"\n")
+                if "Paleta" in nazwaGroszek:
+                    ciach = nazwaGroszek.find("\n")
+                    txtStan = str(sprawdzenie)+". "+nazwaGroszek[:ciach]+", "+nazwaGroszek[ciach+1:]+" *****"
+                    print(txtStan)
+                    plikLogi.write(txtStan+"\n")
+                else:
+                    ciach = nazwaGroszek.find("\n")
+                    txtStan = str(sprawdzenie)+". "+nazwaGroszek[:ciach]+", "+nazwaGroszek[ciach+1:]
+                    print(txtStan)
+                    plikLogi.write(txtStan+"\n")
 
         if sprawdzenie == 0:
             print ("Brak towaru!")
